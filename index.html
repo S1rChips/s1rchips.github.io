@@ -1,129 +1,166 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head><style>body {transition: opacity ease-in 0.2s; } 
+body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relative; } 
+</style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>S1rChips | Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-        }
-        
-        :root {
-            --primary-gradient: linear-gradient(135deg, #8A2BE2 0%, #4B0082 100%);
-            --secondary-gradient: linear-gradient(135deg, #4B0082 0%, #1a1a2e 100%);
-            --glass-bg: rgba(255, 255, 255, 0.08);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            --text-primary: #ffffff;
-            --text-secondary: rgba(255, 255, 255, 0.8);
-            --accent-color: #9d4edd;
-            --glow-color: rgba(157, 78, 221, 0.5);
-        }
-        
-        body {
-            background-color: #0a0a0a;
-            color: var(--text-primary);
-            min-height: 100vh;
-            overflow-x: hidden;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(138, 43, 226, 0.1) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(75, 0, 130, 0.1) 0%, transparent 20%);
-            cursor: none;
-        }
-        
-        /* Custom Cursor */
-        .cursor {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: var(--accent-color);
-            pointer-events: none;
-            z-index: 9999;
-            mix-blend-mode: difference;
-            transition: transform 0.2s ease;
-        }
-        
-        .cursor-follower {
-            position: fixed;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 1px solid var(--accent-color);
-            pointer-events: none;
-            z-index: 9998;
-            transition: all 0.3s ease;
-            opacity: 0.5;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            text-align: center;
-            padding: 20px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero-content {
-            max-width: 800px;
-            z-index: 2;
-        }
-                
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    :root {
+        --primary-gradient: linear-gradient(135deg, #8A2BE2 0%, #4B0082 100%);
+        --secondary-gradient: linear-gradient(135deg, #4B0082 0%, #1a1a2e 100%);
+        --glass-bg: rgba(255, 255, 255, 0.08);
+        --glass-border: rgba(255, 255, 255, 0.1);
+        --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        --text-primary: #ffffff;
+        --text-secondary: rgba(255, 255, 255, 0.8);
+        --accent-color: #9d4edd;
+        --glow-color: rgba(157, 78, 221, 0.5);
+    }
+
+    body {
+        background-color: #0a0a0a;
+        color: var(--text-primary);
+        min-height: 100vh;
+        overflow-x: hidden;
+        background-image: 
+            radial-gradient(circle at 10% 20%, rgba(138, 43, 226, 0.1) 0%, transparent 20%),
+            radial-gradient(circle at 90% 80%, rgba(75, 0, 130, 0.1) 0%, transparent 20%);
+    }
+
+    /* Hero Section */
+    .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-content {
+        max-width: 800px;
+        z-index: 2;
+    }
+
+    /* FIX: Gradient Text - رفع مشکل نمایش متن */
+    .gradient-text {
+        /* ابتدا رنگ معمولی برای fallback */
+        color: #9d4edd;
+        font-weight: 800;
+        font-size: 4.5rem;
+        margin-bottom: 20px;
+        letter-spacing: -1px;
+        display: block;
+        opacity: 1;
+        visibility: visible;
+        position: relative;
+    }
+
+    /* گرادینت برای مرورگرهای مدرن */
+    @supports (background-clip: text) or (-webkit-background-clip: text) {
         .gradient-text {
-            background: var(--primary-gradient);
+            background: linear-gradient(135deg, #8A2BE2 0%, #4B0082 50%, #9d4edd 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            color: var(--accent-color); /* Fallback color */
-            font-weight: 800;
-            font-size: 4.5rem;
-            margin-bottom: 20px;
-            letter-spacing: -1px;
+            color: transparent;
+            text-shadow: none;
         }
-        
-        @supports (background-clip: text) or (-webkit-background-clip: text) {
-            .gradient-text {
-                color: transparent;
-            }
+    }
+
+    /* Fallback برای مرورگرهای قدیمی */
+    @supports not (background-clip: text) {
+        .gradient-text {
+            color: #9d4edd !important;
+            -webkit-text-fill-color: #9d4edd !important;
+            text-shadow: 0 0 20px rgba(157, 78, 221, 0.5);
         }
-        
-        .subtitle {
-            font-size: 1.4rem;
-            color: var(--text-secondary);
-            margin-bottom: 40px;
+    }
+
+    .subtitle {
+        font-size: 1.4rem;
+        color: var(--text-secondary);
+        margin-bottom: 40px;
+        opacity: 0;
+        animation: fadeInUp 1s ease 0.4s forwards;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        overflow: hidden; /* جلوگیری از overflow */
+    }
+
+    /* محدودیت اندازه برای کارت‌ها */
+    .glass-card {
+        background: var(--glass-bg);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-radius: 24px;
+        border: 1px solid var(--glass-border);
+        box-shadow: var(--glass-shadow);
+        padding: 30px;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
+        overflow: hidden;
+        max-width: 100%; /* اضافه کردن max-width */
+        width: 100%; /* عرض کامل */
+        box-sizing: border-box; /* شامل padding در اندازه */
+    }
+    /* انیمیشن‌ها */
+    @keyframes fadeInUp {
+        from {
             opacity: 0;
-            animation: fadeInUp 1s ease 0.4s forwards;
+            transform: translateY(30px);
         }
-        
-        /* Glass Cards */
-        .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 24px;
-            border: 1px solid var(--glass-border);
-            box-shadow: var(--glass-shadow);
-            padding: 30px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
+        to {
+            opacity: 1;
+            transform: translateY(0);
         }
+    }
+
+    @keyframes textGlow {
+        from {
+            text-shadow: 0 0 10px rgba(138, 43, 226, 0.3),
+                        0 0 20px rgba(138, 43, 226, 0.2),
+                        0 0 30px rgba(138, 43, 226, 0.1);
+        }
+        to {
+            text-shadow: 0 0 20px rgba(138, 43, 226, 0.5),
+                        0 0 30px rgba(138, 43, 226, 0.3),
+                        0 0 40px rgba(138, 43, 226, 0.2);
+        }
+    }
+
+    .float-animation {
+        animation: fadeInUp 1s ease 0.2s forwards, textGlow 3s ease-in-out infinite alternate;
+    }
+
+    /* ریسپانسیو */
+    @media (max-width: 768px) {
+        .gradient-text {
+            font-size: 3rem !important;
+            line-height: 1.2;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .gradient-text {
+            font-size: 2.5rem !important;
+        }
+    }
         
         .glass-card::before {
             content: '';
@@ -251,14 +288,15 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            width: 140px;
-            height: 140px;
             border-radius: 20px;
             text-decoration: none;
             color: white;
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
+            max-width: 140px;
+            min-width: 140px;
+            height: 140px;
         }
         
         .social-card::before {
@@ -309,7 +347,8 @@
         }
         
         .current-card {
-            width: 280px;
+            max-width: 280px;
+            min-width: 280px;
             height: 180px;
             display: flex;
             flex-direction: column;
@@ -320,6 +359,7 @@
             position: relative;
             overflow: hidden;
         }
+
         
         .current-card i {
             font-size: 2.5rem;
@@ -613,14 +653,18 @@
             }
         }
     </style>
-</head>
+<style>
+            .trail-dot {
+                transition: all 0.3s ease;
+            }
+        </style></head>
 <body>
     <!-- Custom Cursor -->
-    <div class="cursor"></div>
-    <div class="cursor-follower"></div>
+    <div class="cursor" style="left: 1104px; top: 310px; transform: scale(1);"></div>
+    <div class="cursor-follower" style="left: 1104px; top: 310px; transform: scale(1); border-width: 1px;"></div>
     
     <!-- Particle Background -->
-    <div class="particles" id="particles"></div>
+    <div class="particles" id="particles"><div class="particle" style="width: 2.23029px; height: 2.23029px; left: 69.5019%; top: 47.8099%; animation: 14.5799s ease-in-out 4.85654s infinite normal none running float; opacity: 0.363137;"></div><div class="particle" style="width: 3.65389px; height: 3.65389px; left: 51.9218%; top: 54.2594%; animation: 18.3091s ease-in-out 1.26528s infinite normal none running float; opacity: 0.443648;"></div><div class="particle" style="width: 2.14356px; height: 2.14356px; left: 27.0711%; top: 92.3595%; animation: 21.8777s ease-in-out 4.15564s infinite normal none running float; opacity: 0.205772;"></div><div class="particle" style="width: 4.73852px; height: 4.73852px; left: 4.24007%; top: 57.6894%; animation: 21.5338s ease-in-out 2.14773s infinite normal none running float; opacity: 0.400276;"></div><div class="particle" style="width: 4.322px; height: 4.322px; left: 39.1314%; top: 63.775%; animation: 12.2305s ease-in-out 4.23648s infinite normal none running float; opacity: 0.349455;"></div><div class="particle" style="width: 4.60578px; height: 4.60578px; left: 70.4115%; top: 7.00697%; animation: 24.1633s ease-in-out 2.80245s infinite normal none running float; opacity: 0.157005;"></div><div class="particle" style="width: 4.14725px; height: 4.14725px; left: 81.2713%; top: 20.7144%; animation: 25.3452s ease-in-out 3.2531s infinite normal none running float; opacity: 0.330659;"></div><div class="particle" style="width: 4.02381px; height: 4.02381px; left: 68.7794%; top: 64.1979%; animation: 27.1481s ease-in-out 1.09633s infinite normal none running float; opacity: 0.112498;"></div><div class="particle" style="width: 4.63953px; height: 4.63953px; left: 22.7452%; top: 36.3142%; animation: 21.6146s ease-in-out 2.30172s infinite normal none running float; opacity: 0.335318;"></div><div class="particle" style="width: 6.26479px; height: 6.26479px; left: 70.0607%; top: 1.10728%; animation: 19.9919s ease-in-out 2.86656s infinite normal none running float; opacity: 0.161337;"></div><div class="particle" style="width: 2.12945px; height: 2.12945px; left: 0.996257%; top: 19.3107%; animation: 13.2647s ease-in-out 4.23134s infinite normal none running float; opacity: 0.355675;"></div><div class="particle" style="width: 5.87454px; height: 5.87454px; left: 67.295%; top: 30.4742%; animation: 14.8409s ease-in-out 2.8548s infinite normal none running float; opacity: 0.175345;"></div><div class="particle" style="width: 4.48299px; height: 4.48299px; left: 36.1958%; top: 3.27975%; animation: 29.6762s ease-in-out 3.48983s infinite normal none running float; opacity: 0.302463;"></div><div class="particle" style="width: 5.95363px; height: 5.95363px; left: 90.1675%; top: 91.3734%; animation: 20.1294s ease-in-out 4.24788s infinite normal none running float; opacity: 0.496404;"></div><div class="particle" style="width: 3.16388px; height: 3.16388px; left: 70.2379%; top: 40.8638%; animation: 13.813s ease-in-out 0.494627s infinite normal none running float; opacity: 0.280728;"></div><div class="particle" style="width: 4.92216px; height: 4.92216px; left: 42.8959%; top: 81.8771%; animation: 13.7336s ease-in-out 4.79566s infinite normal none running float; opacity: 0.525194;"></div><div class="particle" style="width: 6.21419px; height: 6.21419px; left: 79.4605%; top: 75.0776%; animation: 21.4235s ease-in-out 3.36144s infinite normal none running float; opacity: 0.142476;"></div><div class="particle" style="width: 6.15189px; height: 6.15189px; left: 49.4496%; top: 39.5602%; animation: 11.5105s ease-in-out 3.55565s infinite normal none running float; opacity: 0.580771;"></div><div class="particle" style="width: 4.16212px; height: 4.16212px; left: 49.0444%; top: 97.1997%; animation: 22.6077s ease-in-out 1.02029s infinite normal none running float; opacity: 0.131046;"></div><div class="particle" style="width: 3.35673px; height: 3.35673px; left: 2.35255%; top: 6.56592%; animation: 15.8433s ease-in-out 3.16317s infinite normal none running float; opacity: 0.236416;"></div><div class="particle" style="width: 3.97418px; height: 3.97418px; left: 37.178%; top: 84.3248%; animation: 14.7885s ease-in-out 0.206445s infinite normal none running float; opacity: 0.361957;"></div><div class="particle" style="width: 6.85907px; height: 6.85907px; left: 25.0716%; top: 27.5167%; animation: 11.7976s ease-in-out 0.216875s infinite normal none running float; opacity: 0.465875;"></div><div class="particle" style="width: 3.7753px; height: 3.7753px; left: 31.1344%; top: 40.8032%; animation: 15.2778s ease-in-out 1.46917s infinite normal none running float; opacity: 0.571142;"></div><div class="particle" style="width: 4.47541px; height: 4.47541px; left: 25.5427%; top: 44.3912%; animation: 21.5232s ease-in-out 2.58434s infinite normal none running float; opacity: 0.342888;"></div><div class="particle" style="width: 4.4777px; height: 4.4777px; left: 48.1336%; top: 16.4782%; animation: 28.7144s ease-in-out 4.09727s infinite normal none running float; opacity: 0.34992;"></div><div class="particle" style="width: 2.72218px; height: 2.72218px; left: 91.7686%; top: 4.0438%; animation: 18.7625s ease-in-out 2.60084s infinite normal none running float; opacity: 0.458949;"></div><div class="particle" style="width: 6.55448px; height: 6.55448px; left: 26.3702%; top: 18.6712%; animation: 11.6217s ease-in-out 3.88815s infinite normal none running float; opacity: 0.108359;"></div><div class="particle" style="width: 4.09345px; height: 4.09345px; left: 59.1108%; top: 67.4219%; animation: 10.4505s ease-in-out 1.94715s infinite normal none running float; opacity: 0.111333;"></div><div class="particle" style="width: 3.8083px; height: 3.8083px; left: 40.9344%; top: 57.9275%; animation: 16.776s ease-in-out 0.146412s infinite normal none running float; opacity: 0.149538;"></div><div class="particle" style="width: 2.34323px; height: 2.34323px; left: 22.885%; top: 14.8641%; animation: 14.7906s ease-in-out 2.40389s infinite normal none running float; opacity: 0.456262;"></div><div class="particle" style="width: 4.15424px; height: 4.15424px; left: 88.3074%; top: 66.3096%; animation: 21.7172s ease-in-out 2.84826s infinite normal none running float; opacity: 0.558922;"></div><div class="particle" style="width: 2.95608px; height: 2.95608px; left: 18.3926%; top: 27.0473%; animation: 27.2575s ease-in-out 2.64367s infinite normal none running float; opacity: 0.235944;"></div><div class="particle" style="width: 6.10354px; height: 6.10354px; left: 88.7496%; top: 40.6359%; animation: 25.2251s ease-in-out 0.985561s infinite normal none running float; opacity: 0.217157;"></div><div class="particle" style="width: 2.16002px; height: 2.16002px; left: 52.8737%; top: 16.7566%; animation: 13.5909s ease-in-out 3.62658s infinite normal none running float; opacity: 0.352699;"></div><div class="particle" style="width: 5.45989px; height: 5.45989px; left: 77.4589%; top: 43.9879%; animation: 27.2968s ease-in-out 3.47706s infinite normal none running float; opacity: 0.550562;"></div><div class="particle" style="width: 6.31201px; height: 6.31201px; left: 35.2384%; top: 11.3484%; animation: 18.4909s ease-in-out 4.38721s infinite normal none running float; opacity: 0.457407;"></div><div class="particle" style="width: 5.9402px; height: 5.9402px; left: 19.0666%; top: 11.8192%; animation: 13.5724s ease-in-out 2.58076s infinite normal none running float; opacity: 0.205666;"></div><div class="particle" style="width: 2.04385px; height: 2.04385px; left: 18.6611%; top: 2.13375%; animation: 24.5186s ease-in-out 1.55981s infinite normal none running float; opacity: 0.314175;"></div><div class="particle" style="width: 3.82834px; height: 3.82834px; left: 34.2929%; top: 61.2349%; animation: 29.6478s ease-in-out 3.00219s infinite normal none running float; opacity: 0.461701;"></div><div class="particle" style="width: 3.52295px; height: 3.52295px; left: 87.7027%; top: 66.8409%; animation: 14.902s ease-in-out 4.67492s infinite normal none running float; opacity: 0.200835;"></div><div class="particle" style="width: 3.89027px; height: 3.89027px; left: 41.4332%; top: 89.4912%; animation: 28.5456s ease-in-out 3.04282s infinite normal none running float; opacity: 0.523671;"></div><div class="particle" style="width: 3.25233px; height: 3.25233px; left: 88.1565%; top: 86.467%; animation: 29.0302s ease-in-out 2.46207s infinite normal none running float; opacity: 0.169768;"></div><div class="particle" style="width: 2.22967px; height: 2.22967px; left: 34.9889%; top: 60.5594%; animation: 22.8742s ease-in-out 3.35676s infinite normal none running float; opacity: 0.30844;"></div><div class="particle" style="width: 6.24576px; height: 6.24576px; left: 6.72025%; top: 55.5737%; animation: 20.8409s ease-in-out 1.71181s infinite normal none running float; opacity: 0.330542;"></div><div class="particle" style="width: 2.23959px; height: 2.23959px; left: 59.714%; top: 93.1833%; animation: 22.7951s ease-in-out 4.40366s infinite normal none running float; opacity: 0.429307;"></div><div class="particle" style="width: 6.63847px; height: 6.63847px; left: 78.4658%; top: 41.5449%; animation: 20.7203s ease-in-out 0.232095s infinite normal none running float; opacity: 0.158483;"></div><div class="particle" style="width: 5.28828px; height: 5.28828px; left: 81.6013%; top: 40.9036%; animation: 15.6637s ease-in-out 0.163748s infinite normal none running float; opacity: 0.219815;"></div><div class="particle" style="width: 5.83018px; height: 5.83018px; left: 85.1933%; top: 36.0851%; animation: 13.8029s ease-in-out 3.22641s infinite normal none running float; opacity: 0.368386;"></div><div class="particle" style="width: 5.75417px; height: 5.75417px; left: 8.28271%; top: 96.1271%; animation: 13.1816s ease-in-out 4.24898s infinite normal none running float; opacity: 0.151839;"></div><div class="particle" style="width: 4.47499px; height: 4.47499px; left: 46.9513%; top: 86.8245%; animation: 23.9645s ease-in-out 3.14321s infinite normal none running float; opacity: 0.469672;"></div></div>
     
     <!-- Hero Section -->
     <div class="hero">
@@ -631,7 +675,7 @@
             <h1 class="gradient-text float-animation">Hello, I'm S1rChips</h1>
             <p class="subtitle">13yo Programmer | Senior Developer | Minecraft Expert</p>
             
-            <div class="glass-card" style="opacity: 0; animation: fadeInUp 1s ease 0.6s forwards;">
+            <div class="glass-card" style="opacity: 1; animation: 0.8s ease 0s 1 normal forwards running fadeInUp; transition: opacity 0.8s, transform 0.8s; transform: translateY(0px);">
                 <p>I'm a 13-year-old programmer from Iran, specializing in Java/SpigotAPI/Python.</p>
                 
                 <div class="stats">
@@ -658,12 +702,12 @@
     
     <div class="container">
         <!-- Profile Section -->
-        <section class="profile-section parallax-section">
-            <div class="profile-image glass-card">
+        <section class="profile-section parallax-section" style="transform: perspective(1000px) rotateY(0deg) rotateX(0deg);">
+            <div class="profile-image glass-card" style="transition: opacity 0.8s, transform 0.8s; opacity: 1; transform: translateY(0px); animation: 0.8s ease 0s 1 normal forwards running fadeInUp;">
                 <i class="fas fa-code"></i>
             </div>
             
-            <div class="profile-info glass-card">
+            <div class="profile-info glass-card" style="transition: opacity 0.8s, transform 0.8s; opacity: 1; transform: translateY(0px); animation: 0.8s ease 0s 1 normal forwards running fadeInUp;">
                 <h2 style="margin-bottom: 20px; font-size: 2rem; animation: textGlow 3s ease-in-out infinite alternate;">About Me</h2>
                 <p style="margin-bottom: 20px; line-height: 1.6;">Young passionate developer with expertise in Minecraft plugin development, server management, and modern programming technologies. Constantly learning and building innovative projects.</p>
                 
@@ -682,11 +726,11 @@
         </section>
         
         <!-- My Projects -->
-        <section class="parallax-section">
+        <section class="parallax-section" style="transform: perspective(1000px) rotateY(0deg) rotateX(0deg);">
             <h2 class="section-title">My Projects</h2>
             
             <div class="grid">
-                <div class="glass-card shimmer" style="opacity: 0; animation: fadeInUp 1s ease 0.2s forwards;">
+                <div class="glass-card shimmer" style="opacity: 1; animation: 0.8s ease 0s 1 normal forwards running fadeInUp; transition: opacity 0.8s, transform 0.8s; transform: translateY(0px);">
                     <div style="display: flex; align-items: center; margin-bottom: 20px;">
                         <div style="width: 50px; height: 50px; border-radius: 12px; background: var(--primary-gradient); display: flex; align-items: center; justify-content: center; margin-right: 15px; animation: pulse 2s infinite;">
                             <i class="fas fa-crown"></i>
@@ -702,7 +746,7 @@
                     </div>
                 </div>
                 
-                <div class="glass-card shimmer" style="opacity: 0; animation: fadeInUp 1s ease 0.4s forwards;">
+                <div class="glass-card shimmer" style="opacity: 1; animation: 0.8s ease 0s 1 normal forwards running fadeInUp; transition: opacity 0.8s, transform 0.8s; transform: translateY(0px);">
                     <div style="display: flex; align-items: center; margin-bottom: 20px;">
                         <div style="width: 50px; height: 50px; border-radius: 12px; background: var(--primary-gradient); display: flex; align-items: center; justify-content: center; margin-right: 15px; animation: pulse 2s infinite 0.5s;">
                             <i class="fas fa-rocket"></i>
@@ -718,7 +762,7 @@
                     </div>
                 </div>
                 
-                <div class="glass-card shimmer" style="opacity: 0; animation: fadeInUp 1s ease 0.6s forwards;">
+                <div class="glass-card shimmer" style="opacity: 1; animation: 0.8s ease 0s 1 normal forwards running fadeInUp; transition: opacity 0.8s, transform 0.8s; transform: translateY(0px);">
                     <div style="display: flex; align-items: center; margin-bottom: 20px;">
                         <div style="width: 50px; height: 50px; border-radius: 12px; background: var(--primary-gradient); display: flex; align-items: center; justify-content: center; margin-right: 15px; animation: pulse 2s infinite 1s;">
                             <i class="fas fa-key"></i>
@@ -737,23 +781,23 @@
         </section>
         
         <!-- Current Work -->
-        <section class="parallax-section">
+        <section class="parallax-section" style="transform: perspective(1000px) rotateY(0deg) rotateX(0deg);">
             <h2 class="section-title">Currently Working On</h2>
             
             <div class="current-items">
-                <div class="glass-card current-card shimmer" style="opacity: 0; animation: fadeInUp 1s ease 0.2s forwards;">
+                <div class="glass-card current-card shimmer" style="opacity: 1; animation: 0.8s ease 0s 1 normal forwards running fadeInUp; transition: opacity 0.8s, transform 0.8s; transform: translateY(0px);">
                     <i class="fas fa-server"></i>
                     <h3>Custom MC-Server Core</h3>
                     <p style="color: var(--text-secondary); margin-top: 10px;">Building a custom Minecraft server core from scratch</p>
                 </div>
                 
-                <div class="glass-card current-card shimmer" style="opacity: 0; animation: fadeInUp 1s ease 0.4s forwards;">
+                <div class="glass-card current-card shimmer" style="opacity: 1; animation: 0.8s ease 0s 1 normal forwards running fadeInUp; transition: opacity 0.8s, transform 0.8s; transform: translateY(0px);">
                     <i class="fas fa-gamepad"></i>
                     <h3>Practice Plugin</h3>
                     <p style="color: var(--text-secondary); margin-top: 10px;">Developing a custom PvP practice plugin for servers</p>
                 </div>
                 
-                <div class="glass-card current-card shimmer" style="opacity: 0; animation: fadeInUp 1s ease 0.6s forwards;">
+                <div class="glass-card current-card shimmer" style="opacity: 1; animation: 0.8s ease 0s 1 normal forwards running fadeInUp; transition: opacity 0.8s, transform 0.8s; transform: translateY(0px);">
                     <i class="fas fa-mountain"></i>
                     <h3>MineHeaven S2</h3>
                     <p style="color: var(--text-secondary); margin-top: 10px;">Preparing Season 2 of MineHeaven with new features</p>
@@ -762,23 +806,23 @@
         </section>
         
         <!-- Currently Learning -->
-        <section class="parallax-section">
+        <section class="parallax-section" style="transform: perspective(1000px) rotateY(0deg) rotateX(0deg);">
             <h2 class="section-title">Currently Learning</h2>
             
             <div class="grid">
-                <div class="glass-card shimmer" style="opacity: 0; animation: fadeInUp 1s ease 0.2s forwards; text-align: center;">
+                <div class="glass-card shimmer" style="opacity: 1; animation: 0.8s ease 0s 1 normal forwards running fadeInUp; text-align: center; transition: opacity 0.8s, transform 0.8s; transform: translateY(0px);">
                     <i class="fab fa-js-square" style="font-size: 3rem; margin-bottom: 20px; background: var(--primary-gradient); -webkit-background-clip: text; background-clip: text; color: transparent;"></i>
                     <h3>JavaScript</h3>
                     <p style="color: var(--text-secondary); margin-top: 10px;">Modern web development and interactive frontend</p>
                 </div>
                 
-                <div class="glass-card shimmer" style="opacity: 0; animation: fadeInUp 1s ease 0.4s forwards; text-align: center;">
+                <div class="glass-card shimmer" style="opacity: 1; animation: 0.8s ease 0s 1 normal forwards running fadeInUp; text-align: center; transition: opacity 0.8s, transform 0.8s; transform: translateY(0px);">
                     <i class="fas fa-code" style="font-size: 3rem; margin-bottom: 20px; background: var(--primary-gradient); -webkit-background-clip: text; background-clip: text; color: transparent;"></i>
                     <h3>Kotlin</h3>
                     <p style="color: var(--text-secondary); margin-top: 10px;">Android development and modern JVM applications</p>
                 </div>
                 
-                <div class="glass-card shimmer" style="opacity: 0; animation: fadeInUp 1s ease 0.6s forwards; text-align: center;">
+                <div class="glass-card shimmer" style="opacity: 1; animation: 0.8s ease 0s 1 normal forwards running fadeInUp; text-align: center; transition: opacity 0.8s, transform 0.8s; transform: translateY(0px);">
                     <i class="fas fa-bolt" style="font-size: 3rem; margin-bottom: 20px; background: var(--primary-gradient); -webkit-background-clip: text; background-clip: text; color: transparent;"></i>
                     <h3>Velocity API</h3>
                     <p style="color: var(--text-secondary); margin-top: 10px;">High-performance Minecraft proxy development</p>
@@ -787,29 +831,29 @@
         </section>
         
         <!-- Social Links -->
-        <section class="parallax-section">
+        <section class="parallax-section" style="transform: perspective(1000px) rotateY(0deg) rotateX(0deg);">
             <h2 class="section-title">Connect With Me</h2>
             
             <div class="social-links">
-                <a href="https://github.com/s1rchips" target="_blank" class="glass-card social-card" style="background: rgba(24, 23, 23, 0.6);">
+                <a href="https://github.com/s1rchips" target="_blank" class="glass-card social-card" style="background: rgba(24, 23, 23, 0.6); transition: opacity 0.8s, transform 0.8s; opacity: 1; transform: translateY(0px); animation: 0.8s ease 0s 1 normal forwards running fadeInUp;">
                     <i class="fab fa-github"></i>
                     <span>GitHub</span>
                     <p style="font-size: 0.8rem; margin-top: 8px; opacity: 0.7;">s1rchips</p>
                 </a>
                 
-                <a href="https://discord.com/users/s1r.chips" target="_blank" class="glass-card social-card" style="background: rgba(88, 101, 242, 0.1);">
+                <a href="https://discord.com/users/s1r.chips" target="_blank" class="glass-card social-card" style="background: rgba(88, 101, 242, 0.1); transition: opacity 0.8s, transform 0.8s; opacity: 1; transform: translateY(0px); animation: 0.8s ease 0s 1 normal forwards running fadeInUp;">
                     <i class="fab fa-discord"></i>
                     <span>Discord</span>
                     <p style="font-size: 0.8rem; margin-top: 8px; opacity: 0.7;">s1r.chips</p>
                 </a>
                 
-                <a href="https://youtube.com/@s1rchips" target="_blank" class="glass-card social-card" style="background: rgba(255, 0, 0, 0.1);">
+                <a href="https://youtube.com/@s1rchips" target="_blank" class="glass-card social-card" style="background: rgba(255, 0, 0, 0.1); transition: opacity 0.8s, transform 0.8s; opacity: 1; transform: translateY(0px); animation: 0.8s ease 0s 1 normal forwards running fadeInUp;">
                     <i class="fab fa-youtube"></i>
                     <span>YouTube</span>
                     <p style="font-size: 0.8rem; margin-top: 8px; opacity: 0.7;">@s1rchips</p>
                 </a>
                 
-                <a href="https://dsc.gg/mineheaven-ir" target="_blank" class="glass-card social-card" style="background: rgba(114, 137, 218, 0.1);">
+                <a href="https://dsc.gg/mineheaven-ir" target="_blank" class="glass-card social-card" style="background: rgba(114, 137, 218, 0.1); transition: opacity 0.8s, transform 0.8s; opacity: 1; transform: translateY(0px); animation: 0.8s ease 0s 1 normal forwards running fadeInUp;">
                     <i class="fas fa-users"></i>
                     <span>Discord Server</span>
                     <p style="font-size: 0.8rem; margin-top: 8px; opacity: 0.7;">dsc.gg/mineheaven-ir</p>
@@ -1036,5 +1080,6 @@
         `;
         document.head.appendChild(trailStyle);
     </script>
-</body>
-</html>
+
+
+<div class="trail-dot" style="position: fixed; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-color); pointer-events: none; z-index: 9997; left: 1104px; top: 310px; opacity: 0.7;"></div><div class="trail-dot" style="position: fixed; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-color); pointer-events: none; z-index: 9997; left: 1104px; top: 310px; opacity: 0.7;"></div><div class="trail-dot" style="position: fixed; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-color); pointer-events: none; z-index: 9997; left: 1104px; top: 310px; opacity: 0.7;"></div><div class="trail-dot" style="position: fixed; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-color); pointer-events: none; z-index: 9997; left: 1104px; top: 310px; opacity: 0.7;"></div><div class="trail-dot" style="position: fixed; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-color); pointer-events: none; z-index: 9997; left: 1104px; top: 310px; opacity: 0.7;"></div><div class="trail-dot" style="position: fixed; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-color); pointer-events: none; z-index: 9997; left: 1104px; top: 310px; opacity: 0.7;"></div><div class="trail-dot" style="position: fixed; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-color); pointer-events: none; z-index: 9997; left: 1104px; top: 310px; opacity: 0.7;"></div><div class="trail-dot" style="position: fixed; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-color); pointer-events: none; z-index: 9997; left: 1104px; top: 310px; opacity: 0.7;"></div><div class="trail-dot" style="position: fixed; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-color); pointer-events: none; z-index: 9997; left: 1104px; top: 310px; opacity: 0.7;"></div><div class="trail-dot" style="position: fixed; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-color); pointer-events: none; z-index: 9997; left: 1104px; top: 310px; opacity: 0.7;"></div></body></html>
