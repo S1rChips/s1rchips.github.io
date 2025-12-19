@@ -84,18 +84,23 @@
             max-width: 800px;
             z-index: 2;
         }
-        
+                
         .gradient-text {
             background: var(--primary-gradient);
             -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             background-clip: text;
-            color: transparent;
+            color: var(--accent-color); /* Fallback color */
             font-weight: 800;
             font-size: 4.5rem;
             margin-bottom: 20px;
             letter-spacing: -1px;
-            opacity: 0;
-            animation: fadeInUp 1s ease 0.2s forwards, textGlow 3s ease-in-out infinite alternate;
+        }
+        
+        @supports (background-clip: text) or (-webkit-background-clip: text) {
+            .gradient-text {
+                color: transparent;
+            }
         }
         
         .subtitle {
